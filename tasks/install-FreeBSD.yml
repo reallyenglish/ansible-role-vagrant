@@ -1,0 +1,6 @@
+---
+
+- name: Install vagrant
+  pkgng:
+    name: vagrant
+    state: present

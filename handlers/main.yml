@@ -1,0 +1,6 @@
+---
+
+- name: Restart vagrant
+  service:
+    name: vagrant
+    state: restarted

@@ -1,0 +1,8 @@
+vagrant_user: vagrant
+vagrant_group: vagrant
+vagrant_log_dir: /var/log/vagrant
+vagrant_db_dir: "{{ __vagrant_db_dir }}"
+vagrant_service: vagrant
+vagrant_conf_dir: "{{ __vagrant_conf_dir }}"
+vagrant_conf_file: "{{ __vagrant_conf_dir }}/vagrant.conf"
+vagrant_flags: ""
