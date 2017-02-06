@@ -1,0 +1,6 @@
+---
+
+- name: Install vagrant
+  package:
+    name: vagrant
+    state: installed
