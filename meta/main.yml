@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: mitsuruy,,,
-  description: Configures something
+  description: Configures vagrant
   company: Reallyenglish
   license: BSD
   min_ansible_version: 2.0

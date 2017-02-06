@@ -1,6 +1,6 @@
 # ansible-role-vagrant
 
-A brief description of the role goes here.
+Installs vagrant.
 
 # Requirements
 
@@ -19,6 +19,9 @@ None
 # Example Playbook
 
 ```yaml
+- hosts: localhost
+  roles:
+    - ansible-role-vagrant
 ```
 
 # License
