@@ -1,6 +1,51 @@
 ---
 
+- name: Check Hshicorp's gpg key is installed
+  command: gpg --list-keys 348FFC4C
+  register: register_vagrant_gpg_key
+  failed_when: register_vagrant_gpg_key.rc not in [0, 2]
+  changed_when: False
+
+- name: Add Hashicorp's gpg key
+  command: gpg --recv-keys 348FFC4C
+  when: register_vagrant_gpg_key.rc != 0
+
+- name: Check vagrant package is installed
+  command: rpm -qi vagrant
+  register: register_vagrant_installed
+  failed_when: register_vagrant_installed.rc not in [0, 1]
+  changed_when: False
+
+- name: Fetch checksum
+  get_url:
+    url: https://releases.hashicorp.com/vagrant/{{ vagrant_version_redhat }}/vagrant_{{ vagrant_version_redhat }}_SHA256SUMS
+    dest: /tmp/vagrant_checksum
+  when: register_vagrant_installed.rc != 0
+
+- name: Fetch checksum signature
+  get_url:
+    url: https://releases.hashicorp.com/vagrant/{{ vagrant_version_redhat }}/vagrant_{{ vagrant_version_redhat }}_SHA256SUMS.sig
+    dest: /tmp/vagrant_checksum.sig
+  when: register_vagrant_installed.rc != 0
+
+- name: Check checksum signature
+  command: gpg vagrant_checksum.sig
+  args:
+    chdir: /tmp
+  when: register_vagrant_installed.rc != 0
+
+- name: Register checksum
+  command: grep -E '{{ ansible_machine }}\.rpm' /tmp/vagrant_checksum
+  register: register_vagrant_checksum
+  when: register_vagrant_installed.rc != 0
+
+- name: Fetch package
+  get_url:
+    url: https://releases.hashicorp.com/vagrant/{{ vagrant_version_redhat }}/vagrant_{{ vagrant_version_redhat }}_{{ ansible_machine }}.rpm
+    dest: /tmp/vagrant.rpm
+    checksum: sha256:{{ register_vagrant_checksum.stdout.split()[0] }}
+  when: register_vagrant_installed.rc != 0
+
 - name: Install vagrant
-  package:
-    name: vagrant
-    state: installed
+  command: rpm -ivh /tmp/vagrant.rpm
+  when: register_vagrant_installed.rc != 0
