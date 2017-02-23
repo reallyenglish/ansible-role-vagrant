@@ -17,6 +17,8 @@ None
 |----------|---------|
 | __vagrant_version_redhat | 1.9.1 |
 
+see [https://releases.hashicorp.com/vagrant/](https://releases.hashicorp.com/vagrant/) for availble versions.
+
 # Dependencies
 
 None
