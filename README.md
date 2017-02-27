@@ -10,7 +10,14 @@ None
 
 | variable | description | default |
 |----------|-------------|---------|
+| vagrant_version_redhat | Vagrant version in RedHat | {{ __vagrant_version_redhat\|default('') }} |
 
+##RedHat
+| variable | default |
+|----------|---------|
+| __vagrant_version_redhat | 1.9.1 |
+
+see [https://releases.hashicorp.com/vagrant/](https://releases.hashicorp.com/vagrant/) for availble versions.
 
 # Dependencies
 
