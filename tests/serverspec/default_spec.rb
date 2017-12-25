@@ -1,8 +1,8 @@
-require 'spec_helper'
-require 'serverspec'
+require "spec_helper"
+require "serverspec"
 
-package = 'vagrant'
+package = "vagrant"
 
 describe package(package) do
   it { should be_installed }
-end 
+end
